@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini Generator CV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <svg aria-hidden="true" class="sprite-defs" width="0" height="0" style="position:absolute;left:-9999px;overflow:hidden">
+    <symbol id="i-sun" viewBox="0 0 24 24"><path d="M12 4.5V2m0 20v-2.5M6.7 6.7 5 5m14 14-1.7-1.7M4.5 12H2m20 0h-2.5M6.7 17.3 5 19m14-14-1.7 1.7M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.2 14.8A8.5 8.5 0 1 1 9.2 3.8a7 7 0 1 0 11 11Z"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.6 2h3.1l1.2 4.8-2 2a15.3 15.3 0 0 0 6.3 6.3l2-2L22 14.3v3.1a2 2 0 0 1-2 2A18 18 0 0 1 4.5 4a2 2 0 0 1 2-2Z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3 5h18v14H3V5Zm9 7L3 6.5h18L12 12Z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></symbol>
+    <symbol id="i-web" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm7.9 9h-3.2a16 16 0 0 0-1.5-5A8 8 0 0 1 19.9 11ZM12 4c1 1.2 2 3.7 2.5 7H9.5C10 7.7 11 5.2 12 4ZM8.8 6a16 16 0 0 0-1.5 5H4.1a8 8 0 0 1 4.7-5ZM4.1 13h3.2a16 16 0 0 0 1.5 5 8 8 0 0 1-4.7-5Zm5.4 0h5c-.5 3.3-1.5 5.8-2.5 7-1-1.2-2-3.7-2.5-7Zm5.7 5a16 16 0 0 0 1.5-5h3.2a8 8 0 0 1-4.7 5Z"/></symbol>
+  </svg>
+
+  <header class="topbar">
+    <div>
+      <h1>Mini Generator CV</h1>
+      <p>Edytuj treść na żywo, wybierz czcionkę, rozmiar, interlinię, kolory i zdjęcie.</p>
+    </div>
+    <div class="topbar-actions">
+      <button id="themeDarkBtn" class="icon-btn" type="button" title="Motyw ciemny" aria-label="Motyw ciemny"><svg class="fi"><use href="#i-moon"/></svg></button>
+      <button id="themeLightBtn" class="icon-btn" type="button" title="Motyw jasny" aria-label="Motyw jasny"><svg class="fi"><use href="#i-sun"/></svg></button>
+      <button id="themePreset1" class="preset-btn" type="button">Motyw 1</button>
+      <button id="themePreset2" class="preset-btn" type="button">Motyw 2</button>
+      <button id="themePreset3" class="preset-btn" type="button">Motyw 3</button>
+      <button id="printBtn" type="button">Drukuj</button>
+      <button id="pdfBtn" type="button">Eksport PDF</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="editor">
+      <section class="card">
+        <h2>Typografia</h2>
+        <div class="field">
+          <label for="fontFamily">Czcionka</label>
+          <select id="fontFamily">
+            <option value="Inter">Inter</option>
+            <option value="Montserrat">Montserrat</option>
+            <option value="Open Sans">Open Sans</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="fontSize">Rozmiar bazowy: <span id="fontSizeValue">12.5px</span></label>
+          <input id="fontSize" type="range" min="11" max="15" step="0.1" value="12.5" />
+        </div>
+        <div class="field">
+          <label for="lineHeight">Wysokość tekstu (interlinia): <span id="lineHeightValue">1.45</span></label>
+          <input id="lineHeight" type="range" min="1.1" max="2" step="0.05" value="1.45" />
+        </div>
+        <div class="field">
+          <label for="leftOffset">Przesunięcie tekstu sekcji lewej (góra/dół): <span id="leftOffsetValue">0px</span></label>
+          <input id="leftOffset" type="range" min="-80" max="80" step="1" value="0" />
+        </div>
+        <div class="field">
+          <label for="rightOffset">Przesunięcie tekstu sekcji prawej (góra/dół): <span id="rightOffsetValue">0px</span></label>
+          <input id="rightOffset" type="range" min="-80" max="80" step="1" value="0" />
+        </div>
+      </section>
+
+      <section class="card form-grid">
+        <h2>Kolory</h2>
+        <div class="field"><label for="sidebarColor">Tło panelu bocznego</label><input id="sidebarColor" type="color" value="#2f3545"></div>
+      </section>
+
+      <section class="card options-grid">
+        <h2>Opcje (ptaszki)</h2>
+        <label class="check"><input id="optPhoto" type="checkbox" checked> Pokaż zdjęcie</label>
+        <label class="check"><input id="optIcons" type="checkbox" checked> Pokaż ikony przy kontakcie</label>
+        <label class="check"><input id="optPortfolio" type="checkbox" checked> Pokaż Portfolio</label>
+        <label class="check"><input id="optSkills" type="checkbox" checked> Pokaż sekcję „Umiejętności”</label>
+        <label class="check"><input id="optEducation" type="checkbox" checked> Pokaż sekcję „Wykształcenie”</label>
+        <label class="check"><input id="optSummary" type="checkbox" checked> Pokaż sekcję „Podsumowanie zawodowe”</label>
+      </section>
+
+      <section class="card">
+        <h2>Zdjęcie</h2>
+        <div class="field">
+          <label for="photoInput">Wgraj zdjęcie (JPG/PNG/WebP)</label>
+          <input id="photoInput" type="file" accept="image/*" />
+        </div>
+        <div class="field">
+          <label for="photoPosX">Pozycja zdjęcia poziomo: <span id="photoPosXValue">50%</span></label>
+          <input id="photoPosX" type="range" min="0" max="100" step="1" value="50" />
+        </div>
+        <div class="field">
+          <label for="photoPosY">Pozycja zdjęcia pionowo: <span id="photoPosYValue">50%</span></label>
+          <input id="photoPosY" type="range" min="0" max="100" step="1" value="50" />
+        </div>
+        <button id="removePhoto" class="btn-secondary" type="button">Usuń zdjęcie</button>
+      </section>
+
+      <section class="card form-grid">
+        <h2>Treść CV</h2>
+        <div class="field"><label for="firstName">Imię</label><input id="firstName" value="EMILIA"/></div>
+        <div class="field"><label for="lastName">Nazwisko</label><input id="lastName" value="HAMILTON"/></div>
+        <div class="field span-2"><label for="role">Stanowisko</label><input id="role" value="Specjalistka ds. marketingu"/></div>
+
+        <div class="field"><label for="phone">Telefon</label><input id="phone" value="023-456-7789"/></div>
+        <div class="field"><label for="email">E-mail</label><input id="email" value="email@gmail.com"/></div>
+        <div class="field"><label for="address">Adres</label><input id="address" value="Miasto, Województwo, Kraj"/></div>
+        <div class="field"><label for="portfolio">Portfolio</label><input id="portfolio" value="portfolio.com/twoj-profil"/></div>
+
+        <div class="field span-2"><label for="summary">Podsumowanie zawodowe</label><textarea id="summary">To miejsce na krótkie przedstawienie Twojego doświadczenia, mocnych stron i najważniejszych osiągnięć zawodowych.</textarea></div>
+
+        <div class="field span-2"><label for="skills">Umiejętności (jedna pozycja na linię)</label><textarea id="skills">Komunikacja
+Adaptacja
+Przywództwo
+Rozwiązywanie problemów
+Kreatywność
+Zarządzanie czasem
+Myślenie krytyczne
+Praca zespołowa</textarea></div>
+
+        <div class="field span-2"><label for="education">Wykształcenie (jeden wpis na linię)</label><textarea id="education">Nazwa kierunku — Nazwa uczelni | Miasto | 2018 – 2021
+Nazwa kierunku — Nazwa uczelni | Miasto | 2021 – 2023</textarea></div>
+
+        <div class="field span-2"><label for="jobs">Doświadczenie zawodowe (bloki oddziel pustą linią)</label><textarea id="jobs">Stanowisko — Nazwa firmy | Miasto | 2022 – obecnie
+Opis głównych obowiązków i zakresu odpowiedzialności.
+Najważniejsze osiągnięcia i efekty pracy.
+
+Stanowisko — Nazwa firmy | Miasto | 2020 – 2022
+Najważniejsze zadania realizowane na stanowisku.
+Wkład w cele zespołu i organizacji.</textarea></div>
+
+      </section>
+    </aside>
+
+    <main class="preview-wrap">
+      <div class="page" id="cvPage">
+        <div class="cv" id="cvRoot">
+          <aside class="sidebar">
+            <div class="photo" id="photoBox">
+              <img id="photoImg" alt="Zdjęcie kandydata" />
+              <span id="photoPlaceholder">Twoje zdjęcie</span>
+            </div>
+            <div class="side-pad">
+              <section>
+                <h3 class="side-section-title">Kontakt</h3>
+                <div class="side-rule"></div>
+                <div class="contact">
+                  <div><div class="k"><span class="icon" data-icon><svg class="fi"><use href="#i-phone"/></svg></span>Telefon</div><div class="v" id="vPhone"></div></div>
+                  <div><div class="k"><span class="icon" data-icon><svg class="fi"><use href="#i-mail"/></svg></span>E-mail</div><div class="v" id="vEmail"></div></div>
+                  <div><div class="k"><span class="icon" data-icon><svg class="fi"><use href="#i-pin"/></svg></span>Adres</div><div class="v" id="vAddress"></div></div>
+                  <div id="portfolioRow"><div class="k"><span class="icon" data-icon><svg class="fi"><use href="#i-web"/></svg></span>Portfolio</div><div class="v" id="vPortfolio"></div></div>
+                </div>
+              </section>
+
+              <section id="skillsSection">
+                <h3 class="side-section-title">Umiejętności</h3>
+                <div class="side-rule"></div>
+                <ul class="skills" id="vSkills"></ul>
+              </section>
+
+              <section id="educationSection">
+                <h3 class="side-section-title">Wykształcenie</h3>
+                <div class="side-rule"></div>
+                <div class="edu" id="vEducation"></div>
+              </section>
+            </div>
+          </aside>
+
+          <section class="main">
+            <header class="hero">
+              <p class="first" id="vFirstName"></p>
+              <p class="last" id="vLastName"></p>
+              <div class="role" id="vRole"></div>
+            </header>
+
+            <section id="summarySection">
+              <div class="sec-head"><h2>Podsumowanie zawodowe</h2><div class="line"></div></div>
+              <p class="summary" id="vSummary"></p>
+            </section>
+
+            <section class="work">
+              <div class="sec-head"><h2>Doświadczenie zawodowe</h2><div class="line"></div></div>
+              <div class="jobs" id="vJobs"></div>
+            </section>
+
+            <p class="consent-static">Wyrażam zgodę na przetwarzanie moich danych osobowych zawartych w CV dla potrzeb niezbędnych do realizacji procesu rekrutacji zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. (RODO).</p>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
